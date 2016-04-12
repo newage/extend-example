@@ -9,6 +9,7 @@ class IndexController
 {
     protected $addresses = [];
 
+    /* Move a some logic to model */
     function executeAction()
     {
 //        $this->readCsvFile();
