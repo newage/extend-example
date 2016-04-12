@@ -11,23 +11,25 @@ class IndexController
 
     function executeAction()
     {
-        $this->readCsvFile();
-        $id = $_GET['id'];
-        $address = $this->addresses[$id];
-        return json_encode($address);
+//        $this->readCsvFile();
+//        $id = $_GET['id'];
+//        $address = $this->addresses[$id];
+//        return json_encode($address);
+        return 'ok';
     }
 
-    function readCsvFile()
-    {
-        $file = fopen('data/example.csv', 'r');
-        while (($line = fgetcsv($file)) !== false) {
-            $this->addresses[] = [
-                'name' => $line[0],
-                'phone' => $line[1],
-                'street' => $line[2],
-            ];
-        }
-
-        fclose($file);
-    }
+    /* Move the part to a storage for work with csv files */
+//    function readCsvFile()
+//    {
+//        $file = fopen('data/example.csv', 'r');
+//        while (($line = fgetcsv($file)) !== false) {
+//            $this->addresses[] = [
+//                'name' => $line[0],
+//                'phone' => $line[1],
+//                'street' => $line[2],
+//            ];
+//        }
+//
+//        fclose($file);
+//    }
 }
