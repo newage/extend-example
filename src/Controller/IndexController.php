@@ -2,35 +2,70 @@
 
 namespace Example\Controller;
 
+use Example\View\JsonView;
+
 /**
  * Class IndexController
  */
-class IndexController
+class IndexController extends AbstractRestConstructor
 {
-    protected $addresses = [];
-
-    /* Move a some logic to model */
-    function executeAction()
+    /**
+     * Get list of entry
+     *
+     * @return JsonView
+     */
+    public function getList()
     {
-//        $this->readCsvFile();
-//        $id = $_GET['id'];
-//        $address = $this->addresses[$id];
-//        return json_encode($address);
-        return 'ok';
+        $variables = $this->getModel()->getList();
+        return new JsonView($variables);
     }
 
-    /* Move the part to a storage for work with csv files */
-//    function readCsvFile()
-//    {
-//        $file = fopen('data/example.csv', 'r');
-//        while (($line = fgetcsv($file)) !== false) {
-//            $this->addresses[] = [
-//                'name' => $line[0],
-//                'phone' => $line[1],
-//                'street' => $line[2],
-//            ];
-//        }
-//
-//        fclose($file);
-//    }
+    /**
+     * Get one entry
+     *
+     * @param int $id
+     * @return JsonView
+     */
+    public function get($id)
+    {
+        $variables = $this->getModel()->get($id);
+        return new JsonView($variables);
+    }
+
+    /**
+     * Create entry
+     *
+     * @param array $data
+     * @return JsonView
+     */
+    public function create(array $data)
+    {
+        $lastInsertId = $this->getModel()->create($data);
+        return new JsonView(['lastInsertId' => $lastInsertId]);
+    }
+
+    /**
+     * Update entry
+     *
+     * @param int   $id
+     * @param array $data
+     * @return JsonView
+     */
+    public function update($id, array $data)
+    {
+        $result = $this->getModel()->update($id, $data);
+        return new JsonView(['result' => $result]);
+    }
+
+    /**
+     * Delete entry
+     *
+     * @param int $id
+     * @return JsonView
+     */
+    public function delete($id)
+    {
+        $result = $this->getModel()->delete($id);
+        return new JsonView(['result' => $result]);
+    }
 }
