@@ -1,38 +1,18 @@
 <?php
 
+/**
+ * This makes our life easier when dealing with paths. Everything is relative
+ * to the application root now.
+ */
+chdir(dirname(__DIR__));
+
+require_once 'vendor/autoload.php';
+
 $path = $_SERVER['PATH_INFO'];
 
 if ($path = '/address')
 {
-    $controller = new \Controller();
-    $return = $controller->ex();
+    $controller = new \Example\Controller\IndexController();
+    $return = $controller->executeAction();
     echo $return;
 }
-
-class Controller
-{
-$addresses = [];
-
-    function ex()
-    {
-        $this->rcd();
-        $id = $_GET['id']
-    $address = $this->addresses[$id];
-    return json_encode($address);
-  }
-
-    function rcd()
-    {
-        $file = fopen('example.csv', 'r');
-        while (($line = fgetcsv($file)) !== FALSE) {
-            $this->addresses[] = [
-                name = $line[0],
-                phone = $line[1],
-                street = $line[2]
-            ]
-    }
-
-        fclose($file);
-    }
-}
-?>
